@@ -28,9 +28,9 @@ DEV_MODE = os.getenv("DEV_MODE", "False") == "True"
 SECRET_KEY = "django-insecure-!=y(ule$r6@vp3oljeo-4&fqpl5b4#xh!luys7sfpwhiz&j9uh"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", default=0)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -92,18 +92,11 @@ DATABASES = {
     # }
     # PostgreSQL
     "default": {
-        # "ENGINE": "django.db.backends.postgresql",
-        # "NAME": "social_network_db",
-        # "USER": "social_network_admin",
-        # "PASSWORD": "admin@123",
-        # "HOST": "localhost",
-        # "PORT": "5432",
-        
         "ENGINE": "django.db.backends.postgresql",
         'NAME': os.getenv('DB_NAME', 'social_network_db'),
         'USER': os.getenv('DB_USER', 'social_network_admin'),
         'PASSWORD': os.getenv('DB_PASSWORD', 'admin@123'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'HOST': os.getenv('DB_HOST', 'db'),
         'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
@@ -186,3 +179,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, 'static'),
 ]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS").split(" ")

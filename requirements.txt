@@ -3,7 +3,6 @@ django-cors-headers
 django_rest_framework
 python-dotenv
 psycopg2-binary
-psycopg2
 faker
 djangorestframework-simplejwt
 gunicorn
